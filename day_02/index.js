@@ -9,30 +9,37 @@ const { getData } = require('../utils')
 
 
 /* PART 1 */
+function isRepeated (obj, value) {
+  return Object.keys(obj).some(key => obj[key] === value) && true
+}
 
-function getValueFromID (acum, current) {
-  // Convert current string into a char array
-  const letters = [...current]
-  
-  let numberOfTimes = {}
-  
-  // Store each letter as key in an object.
-  // value will be the number of occurrences/times that
-  // appears.
-  letters.forEach(letter => {
-    numberOfTimes[letter] = numberOfTimes[letter] 
-      ? numberOfTimes[letter] + 1
-      : 1
-  })
+function repeatedCounter (array) {
+  let storeObj = {}
 
   // Array.prototype.some
   // The some() method tests whether at least one
   // element in the array passes the test implemented 
   // by the provided function.
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-  if (Object.keys(numberOfTimes).some(key => numberOfTimes[key] === 2)) acum[0]++
-  if (Object.keys(numberOfTimes).some(key => numberOfTimes[key] === 3)) acum[1]++
+  array.forEach(value => {
+    storeObj[value] = storeObj[value] ? storeObj[value] + 1 : 1
+  })
+
+  return storeObj
+}
+
+function getValueFromIDs (acum, current) {
+  // Convert current string into a char array
+  const letters = [...current]
   
+  // Store each letter as key in an object.
+  // value will be the number of occurrences/times that
+  // appears.
+  let numberOfTimes = repeatedCounter(letters)
+  
+  if (isRepeated(numberOfTimes, 2)) acum[0]++
+  if (isRepeated(numberOfTimes, 3)) acum[1]++
+
   return acum
 }
 
@@ -42,7 +49,7 @@ function getChecksum (data) {
   // (that you provide) on each member of the array 
   // resulting in a single output value.
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-  const checksum = data.reduce(getValueFromID, [ 0, 0 ])
+  const checksum = data.reduce(getValueFromIDs, [ 0, 0 ])
 
   return checksum[0] * checksum[1]
 }
