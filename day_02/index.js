@@ -9,10 +9,6 @@ const { getData } = require('../utils')
 
 
 /* PART 1 */
-function isRepeated (obj, value) {
-  return Object.keys(obj).some(key => obj[key] === value) && true
-}
-
 function repeatedCounter (array) {
   let storeObj = {}
 
@@ -37,8 +33,8 @@ function getValueFromIDs (acum, current) {
   // appears.
   let numberOfTimes = repeatedCounter(letters)
   
-  if (isRepeated(numberOfTimes, 2)) acum[0]++
-  if (isRepeated(numberOfTimes, 3)) acum[1]++
+  if (Object.values(numberOfTimes).includes(2)) acum[0]++
+  if (Object.values(numberOfTimes).includes(3)) acum[1]++
 
   return acum
 }
@@ -55,4 +51,22 @@ function getChecksum (data) {
 }
 
 const arrayIds = getData('day_02/input.txt')
+
+/* PART 2 */
+for (let i = 0; i< arrayIds.length; i++) {
+  for (let j = i + 1; j < arrayIds.length; j++) {
+    const lettersI = [...arrayIds[i]]
+    const lettersJ = [...arrayIds[j]]
+
+    let diff = lettersI.reduce((acum, current, i) => {
+      return acum + (current === lettersJ[i] ? 0 : 1)
+    }, 0)
+
+    if (diff === 1) {
+      console.log(arrayIds[i])
+      console.log(arrayIds[j])
+    }
+  }
+}
+
 console.log(`PART 1 -- List of box IDs Checksum: ${getChecksum(arrayIds)}`)
