@@ -8,10 +8,8 @@ const rl = readline.createInterface({
 let frequency = 0
 
 // Part 1
-rl.on('line', num => { 
-  frequency += Number(num)
-  console.log(`resulting frequency: ${frequency}`)
-})
+rl.on('line', num => frequency += Number(num))
+rl.on('close', () => console.log(`Final: ${frequency}`))
 
-
+// Part 2
 
