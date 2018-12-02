@@ -51,22 +51,4 @@ function getChecksum (data) {
 }
 
 const arrayIds = getData('day_02/input.txt')
-
-/* PART 2 */
-for (let i = 0; i< arrayIds.length; i++) {
-  for (let j = i + 1; j < arrayIds.length; j++) {
-    const lettersI = [...arrayIds[i]]
-    const lettersJ = [...arrayIds[j]]
-
-    let diff = lettersI.reduce((acum, current, i) => {
-      return acum + (current === lettersJ[i] ? 0 : 1)
-    }, 0)
-
-    if (diff === 1) {
-      console.log(arrayIds[i])
-      console.log(arrayIds[j])
-    }
-  }
-}
-
 console.log(`PART 1 -- List of box IDs Checksum: ${getChecksum(arrayIds)}`)
