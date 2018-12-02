@@ -1,16 +1,12 @@
 'use strict'
+
 /**
  * --- Day 1: Chronal Calibration ---
  * https://adventofcode.com/2018/day/1
  */
 
-const fs = require('fs')
-const path = require('path')
-
-const input = fs.readFileSync(path.resolve(__dirname, 'input.txt'), { encoding: 'utf8' })
-// Convert data file input
-const frequencies = input.split(/\n/g).map(Number)
-
+const { getData } = require('../utils')
+ 
 /** PART 1 */
 function resolvePart1 (data) {
   // Array Reduce Docs:
@@ -42,6 +38,7 @@ function resolvePart2 (data) {
   }
 }
 
+const frequencies = getData('day_01/input.txt', Number)
 console.log(`PART 1 -- Resulting frequency: ${resolvePart1(frequencies)}`)
 console.log(`PART 2 -- First frequency your device reaches twice: ${resolvePart2(frequencies)}`)
 
